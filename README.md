@@ -1,5 +1,49 @@
 **This repository is in the process of being deprecated.  See the [Android TODO app](https://developer.couchbase.com/documentation/mobile/1.3/training/develop/create-database/index.html) in the training documentation for a more up-to-date sample.
 
+## Working with CB Lite Android 1.4.1, CB Sync Gateway 1.5.1, CB Server 5.0.0
+Here are my very rough notes for using this project with newer versions of Couchbase software
+1. Import project into Android Studio
+1. Update dependencies
+1. Add Facebook App
+    1. Create a Facebook Developer account: https://developers.facebook.com/
+    2. Add the To Do Lite app
+1. Configure Facebook account
+    1. https://www.hull.io/help/facebook-app-not-setup-error/
+1. Configure app for Facebook login
+    1. https://developers.facebook.com/docs/facebook-login/android/
+    1. Generate development hash key. MacOS
+        ```
+        keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
+        ```
+    1. Request to access user’s email address
+        1. Facebook account must have an email address, otherwise sync gateway 1.5.1 reports an error
+           1. This is fixed in newer versions
+        1. LoginActivity.java: 
+        ```
+        facebookLoginButton.setReadPermissions("email")
+        ```
+1. Open port access or hardcode the IP address for the sync gateway
+    1. if using `localhost:4984` as described in the instructions
+        ```
+        adb reverse tcp:4984 tcp:4984
+        ```
+    1. Application.java: 
+        ```
+        private static final String SYNC_URL_HTTP = "http://sync-gateway-ip-address:4984/todolite";
+        ```
+1. Configure sync gateway to sync with remote DB
+    1. Login to CB Admin console
+        1. http://example.com:8091/ui/index.html#!/servers/list
+    1. Create bucket and user account
+        1. bucket: todolite
+        1. user: todolite/password
+            1. Bucket Full Access, Bucket Admin
+    1. Add to sync gateway config
+    1. Background
+        1. Shared Bucket Access (1.5.1):
+            1. https://developer.couchbase.com/documentation/mobile/1.5/guides/sync-gateway/shared-bucket-access.html
+        1. Tutorial showing a similar integration using Couchbase Mobile 2.0 DP: http://docs.couchbase.com/tutorials/travel-sample/develop/java
+
 ## ToDo Lite for Android
 
 [![Join the chat at https://gitter.im/couchbase/mobile](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/couchbase/mobile?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

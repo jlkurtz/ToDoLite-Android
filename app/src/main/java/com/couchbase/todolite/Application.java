@@ -31,7 +31,7 @@ import java.util.Map;
 public class Application extends android.app.Application implements Replication.ChangeListener {
     public static final String TAG = "ToDoLite";
 
-    private static final String SYNC_URL_HTTP = "http://us-east.testfest.couchbasemobile.com:4984/todolite";
+    private static final String SYNC_URL_HTTP = "http://10.0.0.9:4984/todolite";
 
     // Storage Type: .SQLITE_STORAGE or .FORESTDB_STORAGE
     private static final String STORAGE_TYPE = Manager.SQLITE_STORAGE;

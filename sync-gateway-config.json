@@ -3,10 +3,12 @@
   "facebook": { "register": true },
   "databases": {
     "todolite": {
-      "server": "walrus:",
-      "users": {
-        "GUEST": {"disabled": true}
-      },
+      "bucket": "todolite",
+      "username": "todolite",
+      "password": "Todolite!",
+      "server": "http://example.com:8091",
+      "enable_shared_bucket_access": true,
+      "import_docs": "continuous",
       "sync": `
 function(doc, oldDoc) {
   // NOTE this function is the same across the iOS, Android, and PhoneGap versions.
@@ -30,7 +32,7 @@ function(doc, oldDoc) {
     var ownerName = owner.substring(owner.indexOf(":")+1);
     requireUser(ownerName);
 
-    var ch = "list-"+doc._id; 
+    var ch = "list-"+doc._id;
     if (!doc._deleted) {
       channel(ch);
     }
@@ -39,7 +41,7 @@ function(doc, oldDoc) {
     access(ownerName, ch);
 
     // Grant shared members access to the channel:
-    var members = !doc._deleted ? doc.members : oldDoc.members;  
+    var members = !doc._deleted ? doc.members : oldDoc.members;
     if (Array.isArray(members)) {
       var memberNames = [];
       for (var i = members.length - 1; i >= 0; i--) {

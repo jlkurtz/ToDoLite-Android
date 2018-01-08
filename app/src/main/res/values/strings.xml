@@ -2,7 +2,7 @@
     <string name="app_name">ToDoLite</string>
 
     <string name="facebook_app_id">510926975701287</string>
-    <string name="fb_login_protocol_scheme">fb510926975701287</string>
+    <string name="fb_login_protocol_scheme">fb1907846079544656</string>
 
     <string name="action_create_list">New list</string>
     <string name="action_login">Log in</string>
